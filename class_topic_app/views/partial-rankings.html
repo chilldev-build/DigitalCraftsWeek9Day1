@@ -1,0 +1,61 @@
+<div id='displayRanking'>
+        <table class='table'>
+            <thead class='thead'>
+                <tr class='tr'>
+                    <td><b>How We Rank:</b></td>
+                </tr>
+            </thead>
+            <tr><td>0. Unranked</td></tr>
+            <tr><td>1. Poor</td></tr>
+            <tr><td>2. Okay</td></tr>
+            <tr><td>3. Good</td></tr>
+            <tr><td>4. Great</td></tr>
+            <tr><td>5. Awesome</td></tr>
+        </table>
+
+<table class='table' id='selfRank'>
+        <thead class='thead'>
+            <tr class='tr'>
+                <td><b>Topic:</b></td>
+                <td style='width:200px;'><b>How We Are Doing:</b></td>
+            </tr>
+        </thead>
+                ${
+                    selfRanks.map(ele=>
+                        `
+                        <tr>
+                            <td>${ele.topic_name}</td>
+                            <td>${ele.ranking}</td>
+                        </tr>
+                        `
+                    ).join('')
+                }
+    </table>
+    <table class='table' id='radioTable'>
+        <thead class='thead'>
+            <tr class='tr'>
+                <td><b>Subject Name</b></td>
+                <td style='width:200px;'><b>Ranking</b></td>
+            </tr>
+        </thead>
+        <form id='form' action="/rank" method='POST'>
+        ${
+            selfRanks.map(ele=>
+                `
+                <tr>
+                    <td>${ele.topic_name}</td>
+                    <td id='rankRadioContainer'>
+                        ${
+                            selfRanks.map((e,ind)=>
+                                ele.id == ind+1 ? `<input type="radio" name='${ele.topic_name}' value=${ind+1} class='rankRadio' checked/>${ind}`:`<input type="radio" name='${ele.topic_name}' value=${ind+1} class='rankRadio'/>${ind}`
+                            ).join('')
+                        }
+                    </td>
+                </tr>
+                `
+            ).join('')
+        }
+        <tr><td colspan='2' id='buttonContainer'><button id='masterButton' class='button' type='submit' value=''>Submit</button></td></tr>
+        </form>
+    </table>
+</div>
