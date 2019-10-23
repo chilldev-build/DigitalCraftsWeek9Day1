@@ -1,0 +1,28 @@
+<section class="section">
+    <form name="ranking-form" action="/" method="POST">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Topic</th>
+                    <th>Current Ranking</th>
+                </tr>
+            </thead>
+            <tbody>
+            ${classTopics.map(topic => `
+                <tr>
+                    <td class="topic-name">${topic.topic_name}</td> 
+                    <td class="has-input">
+                        ${selfRanks.map(status => `
+                            <label ${topic.rank_title === status.rank_title ? `class='active'` : ''}>
+                                ${status.rank_title}
+                                <input type='radio' name="${topic.topic_name}" value="${status.id}" ${topic.rank_title === status.rank_title ? 'checked' : ''}>
+                            </label>
+                        `).join('')}
+                    </td>
+                </tr>
+            `).join('')}
+            </tbody>
+        </table>
+        <button type="submit" class="button is-medium is-link">Save Rankings</button>
+    </form>
+</section>
